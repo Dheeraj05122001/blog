@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+    <style>
+*{
+  box-sizing: border-box;
+}
+.container{
+    margin:auto;
+    padding-top:%;
+    margin-left:30%;
+    margin-right:30%;
+    background-color: white;
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h3>Login</h3>
+            <p>Welcome back! Log in to your account.</p>
+            <form method="post" action="{% url 'loginpage' %}">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="alert alert-primary" role="alert">
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %} 
+                </div>
+                {% endif %}
+                <div class="userid"><h4><label for="username">Username</label></h4></div>
+                <input type="text" name="username" placeholder="Enter your username">
+                <div class="password"><h5><label for="password">Password</label></h5></div>
+                <input type="password" name="pass1" placeholder="Enter your password">
+                <br><br>
+                <div class="login">
+                    <button type="submit">
+                        Login
+                    </button>
+                </div>
+                <div class="signup">
+                    <h4>Don't have account? <a href="/registration">Create Account</a></h4>
+
+                </div>
+            </form>
+
+    </div>
+</body>
+</html>

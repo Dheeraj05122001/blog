@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+* {
+  box-sizing: border-box;
+}
+.container1{
+    margin:auto;
+    padding-top:%;
+    margin-left:30%;
+    margin-right:30%;
+    background-color: white;
+    }
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 0px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+<body>
+    <div class="container1">
+        <h3>Register</h3>
+        <p>Create your Account here.</p>
+        <form method="post" action="{% url 'signuppage' %}" >
+            {% csrf_token %}
+            {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="userid"><h4><label for="">Username</label></h4></div>
+            <input type="text" name="username" placeholder="User Id">
+            <div class="row">
+                <div class="column">
+                    <div class="name"><h5><label for="">Firstname</label></h5></div>
+                    <input type="text" name="first_name" placeholder="First Name">
+                    <div class="email"><h5><label for="">Email</label></h5></div>
+                    <input type="email" name="email" placeholder="Email">
+                
+                </div>
+                <div class="column">
+                    <div class="password"><h5><label for="">Password</label></h5></div>
+                    <input type="password" name="pass1" placeholder="Password">
+                    <div class="cpassword"><h5><label for="">Confirm_Password</label></h5></div>
+                    <input type="password" name="pass2" placeholder="Confirm Password">
+                </div> 
+            </div>
+            <div class="csignin">
+                <button type="submit">
+                    CREATE
+                 </button>
+            </div>
+
+            <div class="clogin">
+                <h4>Already have account? <a href="/">Login</a></h4>
+
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
