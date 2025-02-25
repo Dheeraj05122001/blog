@@ -1,4 +1,3 @@
-<!-- blog/templates/blog/post_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,82 +6,176 @@
     <title>{{ post.title }} - Blog Post</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f7fc;
+            background-color: #fdfaf5;
         }
         header {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
+            
+            color: black;
+            padding: 0px 0;
             text-align: center;
         }
         header h1 {
             margin: 0;
             font-size: 36px;
         }
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #fdfaf5;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            margin: 10px 15px;
+            font-size: 20px;
+        }
+
+        .navbar .cta {
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
         .container {
             max-width: 800px;
-            margin: 20px auto;
-            padding: 0 15px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .post-header {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .post-header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 5px;
+        }
+        .post-header p {
+            font-size: 18px;
+            color: #555;
+            margin: 0;
+        }
+        .author {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .author-info a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .author-info span {
+            font-size: 14px;
+            color: #777;
         }
         .post-detail {
-            background-color: white;
+            background-color: #fdfaf5;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
         }
-        .post-detail h2 {
-            margin-top: 0;
-            font-size: 32px;
-            color: #333;
+        .post-detail img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
         }
         .post-detail p {
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.6;
-            color: #555;
+            color: #333;
+            margin-top: 20px;
         }
-        .back-link {
+        .reactions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
             font-size: 16px;
-            color: #007bff;
-            text-decoration: none;
+            color: #777;
         }
-        .back-link:hover {
-            text-decoration: underline;
+        .reactions span {
+            cursor: pointer;
         }
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        .footer p {
-            margin: 0;
-            font-size: 14px;
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .post-header h1 {
+                font-size: 26px;
+            }
+            .post-header p {
+                font-size: 16px;
+            }
+            .author img {
+                width: 40px;
+                height: 40px;
+            }
+            .author-info span {
+                font-size: 12px;
+            }
+            .post-detail p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>My Awesome Blog</h1>
-        <p>Sharing thoughts and ideas</p>
-    </header>
+    <nav class="navbar">
+        <div class="logo"><strong>MindSET Matters</strong></div>
+        <div>
+            <a href="{% url 'create_post' %}" class="create-post-button">Write</a>
+            <a href="{% url 'loginpage' %}" class="cta">Get started</a>
+        </div>
+    </nav>
+        <header>
+            <p>The place where thoughts become movements.</p>
+        </header>
+    
 
     <div class="container">
-        <div class="post-detail">
-            <h2>{{ post.title }}</h2>
-            <p><strong>Posted on:</strong> {{ post.created_at|date:"F j, Y" }}</p>
-            <hr>
-            <p>{{ post.content }}</p>
-            <p><a href="{% url 'post_list' %}" class="back-link">Back to Blog List</a></p>
+        <div class="post-header">
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.subtitle }}</p>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>&copy; 2025 My Awesome Blog. All rights reserved.</p>
+        <div class="author">
+            <img src="{{ post.author.image_url }}" alt="Author">
+            <div class="author-info">
+                <a href="#">{{ post.author.name }}</a>
+                <span>Published in {{ post.category }} • {{ post.created_at|date:"F j, Y" }}</span>
+            </div>
+        </div>
+
+        <div class="post-detail">
+            <!-- <img src="{{ post.image_url }}" alt="Post Image"> -->
+            <p>{{ post.content }}</p>
+        </div>
+
+        <div class="reactions">
+            <span>👏 {{ post.likes }}</span>
+            <span>💬 {{ post.comments }} Comments</span>
+        </div>
     </div>
 
 </body>

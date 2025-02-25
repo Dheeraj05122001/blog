@@ -32,7 +32,7 @@ def post_detail(request, pk):
 def loginpage(request):
     if request.method == "POST":
         username = request.POST['username']
-        pass1 = request.POST['pass1']
+        pass1 = request.POST['password']
 
         user = authenticate(username = username, password = pass1 )
 
@@ -62,11 +62,14 @@ def registration(request):
             user = User.objects.create_user(username = username, email = email,password = pass1)
             user.save()
             messages.success(request,"account succesfully created")
-            return redirect('/')
+            return render(request,'registration.html')
     
     return render(request, 'registration.html')
 
 def signout(request):
     logout(request)
     return redirect('loginpage.html')
+
+def homepage(request):
+    return render(request, 'base.html')
 

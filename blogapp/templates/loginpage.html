@@ -2,50 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
-*{
-  box-sizing: border-box;
-}
-.container{
-    margin:auto;
-    padding-top:%;
-    margin-left:30%;
-    margin-right:30%;
-    background-color: white;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
 
-</style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdfaf5;
+            /* background: linear-gradient(90deg, #8da8ed, #a7bce0,#be81d8); */
+        }
+
+        .container {
+            background: #fff;
+            height: 400px;
+            padding: 30px;
+            line-height: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgb(57, 56, 56);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: gray;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(to right, #185a9d, #43cea2);
+        }
+
+        .signup{
+            margin-top: 30px;
+        }
+
+        .signup a {
+            color: #185a9d;
+            text-decoration: none;
+            font-weight: bold;
+        } 
+    </style>
 </head>
 <body>
     <div class="container">
         <h3>Login</h3>
-            <p>Welcome back! Log in to your account.</p>
-            <form method="post" action="{% url 'loginpage' %}">
-                {% csrf_token %}
-                {% if messages %}
-                <div class="alert alert-primary" role="alert">
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %} 
-                </div>
-                {% endif %}
-                <div class="userid"><h4><label for="username">Username</label></h4></div>
+        <p>Welcome back! Log in to your account.</p>
+        <form method="post" action="{% url 'loginpage' %}">
+            {% csrf_token %}
+            {% if messages %} 
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %} 
+            </div>
+            {% endif %} 
+            <div class="input-group">
+                <i class="fas fa-user"></i>
                 <input type="text" name="username" placeholder="Enter your username">
-                <div class="password"><h5><label for="password">Password</label></h5></div>
-                <input type="password" name="pass1" placeholder="Enter your password">
-                <br><br>
-                <div class="login">
-                    <button type="submit">
-                        Login
-                    </button>
-                </div>
-                <div class="signup">
-                    <h4>Don't have account? <a href="/registration">Create Account</a></h4>
-
-                </div>
-            </form>
-
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="signup">
+            <p>Don't have an account? <a href="/registration">Create Account</a></p>
+        </div>
     </div>
 </body>
 </html>

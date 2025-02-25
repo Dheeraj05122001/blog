@@ -10,19 +10,43 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7fc;
+            margin: 0px;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding: 300;
+            background-color: #fdfaf5;
         }
         header {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
+            
+            color: black;
+            padding: 0px 0;
             text-align: center;
         }
         header h1 {
             margin: 0;
             font-size: 36px;
+        }
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #fdfaf5;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            margin: 10px 15px;
+            font-size: 20px;
+        }
+
+        .navbar .cta {
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
         }
         .container {
             max-width: 1200px;
@@ -30,11 +54,11 @@
             padding: 0 15px;
         }
         .blog-post {
-            background-color: white;
             margin-bottom: 20px;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width:55vw;
+            border-bottom: 1px solid grey;
+            /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
         }
         .blog-post h2 {
             margin-top: 0;
@@ -53,6 +77,20 @@
         }
         .read-more:hover {
             text-decoration: underline;
+        }
+        .signout{
+            background: black;
+            color: white;
+            height: 27px;
+            border-radius: 15px;
+            width: 100px;
+        }
+        .signout a{
+            text-decoration: none;
+            color: white;
+            font-size: large;
+            font-weight: 100;
+            margin: 15px;
         }
         .footer {
             background-color: #333;
@@ -74,14 +112,15 @@
 <body>
 {% csrf_token %} 
 {% if user %}
-<div class="alert alert-primary" role="alert">
-    <h2>Hello  {{ request.user }} !!!</h2>
-    <h3> You're successfully logged in.</h3>
-
-</div>
+<nav class="navbar">
+    <div class="logo"><strong>MindSET Matters</strong></div>
+    <div>
+        <a href="{% url 'create_post' %}" class="create-post-button">Write</a>
+        <a href="{% url 'loginpage' %}" class="cta">Get started</a>
+    </div>
+</nav>
     <header>
-        <h1>My Awesome Blog</h1>
-        <p>Sharing thoughts and ideas</p>
+        <p>The place where thoughts become movements.</p>
     </header>
 
     <div class="container">
@@ -98,14 +137,14 @@
             <p>No posts available.</p>
         {% endfor %}
     {% endif %}
-        <div><button><a href="{% url 'create_post' %}" class="create-post-button">Create New Post</a></button></div>
+       
         <div class="signout">
             <h4><a href="/">Sign out</a></h4>
         </div>
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 My Awesome Blog. All rights reserved.</p>
+        <p>&copy; 2025 MindSET Matters. All rights reserved.</p>
     </div>
 
 </body>

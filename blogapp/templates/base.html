@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSET Matters</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0px;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding: 300;
+            /* background-color: #fdfaf5; */
+            background-image: url('/blogproject//blogapp/static/images/download.jpg'); /* Replace with your image path */
+            background-size: cover; /* Covers the entire page */
+            background-position: center;
+            background-repeat: no-repeat; 
+        }
+        .image{
+            position: fixed;
+            top:150px;
+            left:900px;
+            z-index:2;
+            height:1000px;
+            width:100vw;
+
+        }
+
+        
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fdfaf5;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        .navbar .cta {
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: left;
+            padding: 80px;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #444;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: black;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Illustration Section */
+        .illustration {
+            position: absolute;
+            right: 10%;
+            top: 30%;
+            width: 350px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo"><strong>MindSET Matters</strong></div>
+        <div>
+            <a href="#">Our Story</a>
+            <a href="#">Membership</a>
+            <a href="loginpage/">Sign in</a>
+            <a href="loginpage/" class="cta">Get started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Real stories, powerful ideas.</h1>
+        <p>A home for thinkers, writers, and storytellers.</p>
+        <a href="loginpage/" class="btn">Start reading</a>
+    </div>
+    <div class="image"><img src="{% static 'images/download.jpg' %}" alt="images"></div>
+    
+
+</body>
+</html>

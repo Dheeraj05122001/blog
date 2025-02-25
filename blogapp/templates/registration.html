@@ -2,39 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
     <style>
-* {
-  box-sizing: border-box;
-}
-.container1{
-    margin:auto;
-    padding-top:%;
-    margin-left:30%;
-    margin-right:30%;
-    background-color: white;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
 
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 50%;
-  padding: 0px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdfaf5;
+        }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</style>
+        .container {
+            height: 550px;    
+            margin-top: 20px;
+            background: #fff;
+            padding: 30px;
+            line-height: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgb(57, 56, 56);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        label{
+            text-align: start;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: gray;
+        }
+
+        .login-btn, .signup-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover, .signup-btn:hover {
+            background: linear-gradient(to right, #185a9d, #43cea2);
+        }
+
+        .signup {
+            margin-top: 10px;
+        }
+
+        .signup a {
+            color: #185a9d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="container1">
+    <div class="container">
         <h3>Register</h3>
-        <p>Create your Account here.</p>
+        <div class="logo"><strong>Join MindSET Matters</strong></div>
         <form method="post" action="{% url 'signuppage' %}" >
             {% csrf_token %}
             {% if messages %}
@@ -45,35 +110,37 @@
             </div>
             {% endif %}
 
-            <div class="userid"><h4><label for="">Username</label></h4></div>
-            <input type="text" name="username" placeholder="User Id">
-            <div class="row">
-                <div class="column">
-                    <div class="name"><h5><label for="">Firstname</label></h5></div>
-                    <input type="text" name="first_name" placeholder="First Name">
-                    <div class="email"><h5><label for="">Email</label></h5></div>
-                    <input type="email" name="email" placeholder="Email">
-                
-                </div>
-                <div class="column">
-                    <div class="password"><h5><label for="">Password</label></h5></div>
-                    <input type="password" name="pass1" placeholder="Password">
-                    <div class="cpassword"><h5><label for="">Confirm_Password</label></h5></div>
-                    <input type="password" name="pass2" placeholder="Confirm Password">
-                </div> 
-            </div>
-            <div class="csignin">
-                <button type="submit">
-                    CREATE
-                 </button>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" placeholder="User Id">
             </div>
 
-            <div class="clogin">
-                <h4>Already have account? <a href="/">Login</a></h4>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="first_name" placeholder="First Name">
+            </div>
 
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="email" name="email" placeholder="Email">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="password" name="pass1" placeholder="Password">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="password" name="pass2" placeholder="Confirm Password">
+            </div>
+
+            <button type="submit" class="signup-btn">CREATE</button>
+
+            <div class="signup">
+                <p>Already have an account? <a href="{% url 'loginpage' %}">Login</a></p>
             </div>
         </form>
     </div>
-
 </body>
 </html>
