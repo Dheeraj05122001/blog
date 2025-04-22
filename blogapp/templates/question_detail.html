@@ -110,16 +110,17 @@
       border-radius: 15px;
       width: 100px;
     }
+
     .question-card {
-            background: #fcfcef; */
-            border-radius: 8px;
-            /* /* padding: 15px; */
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
-        }
+      background: #fcfcef;
+      */ border-radius: 8px;
+      /* /* padding: 15px; */
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+    }
 
     .author-initial {
       width: 40px;
@@ -152,32 +153,29 @@
   <nav class="navbar">
     <div class="logo"><strong>MindSET Matters</strong></div>
     <div>
-      <a href="{% url 'question_list' %}" class="create-post-button">Home</a>
-      <a href="/postlist/" class="create-post-button">Blog</a>
+      <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+      <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+      <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
       <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
       <a href="/ask/">Ask Question</a>
 
     </div>
     <div>
       <a href="{% url 'user_profile' user.id %}">
-          <!-- <img src="{{ user_data.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;"> -->
-          <strong>{{ user.username|first }}</strong>
+        <strong>{{ user.username|first }}</strong>
       </a><br>
-  </div>
+    </div>
   </nav>
   <div class="ml-12 md:mx-60 mt-16 leading-loose">
     <div class="question-card">
       <div class="author-initial">
-          {{ question.author.username|first }}
+        {{ question.author.username|first }}
       </div>
       <div class="question-text">
         <h1 class="text-3xl font-bold">{{ question.title }}</h1>
-          <small>| Posted on {{ question.created_at|date:"d-M-Y" }}</small>
+        <small>| Posted on {{ question.created_at|date:"d-M-Y" }}</small>
       </div>
-  </div>
-
-    <!-- <p>{{ question.body }}</p> -->
-
+    </div>
 
     <div class="text-2xl font-semibold mt-6 mb-12 border-t-2 border-gray-200 h-8 py-4">Answers</div>
     <ul class="h-auto max-w-[700px] mt-4 ">
@@ -210,4 +208,5 @@
 
 
 </body>
+
 </html>

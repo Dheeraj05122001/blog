@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MindSET Matters - Homepage</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0 50px;
+            background-color: #fdfaf5;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #fdfaf5;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            margin: 10px 15px;
+            font-size: 20px;
+        }
+
+        .navbar .cta {
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .post-header, .question-section {
+            margin-bottom: 30px;
+        }
+
+        .post-header h1, .question-section h2 {
+            font-size: 32px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .post-detail, .blog-post {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .post-detail img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .post-detail p, .blog-post p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .read-more {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo"><strong>MindSET Matters</strong></div>
+        <div>
+            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+            <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
+            <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
+            <a href="/ask/">Ask Question</a>
+        </div>
+
+        <div>
+          <a href="{% url 'user_profile' user.id %}">
+              <!-- <img src="{{ user_data.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;"> -->
+              <strong>{{ user.username|first }}</strong>
+          </a><br>
+      </div>
+      </nav>
+
+    <header>
+        <p>The place where thoughts become movements.</p>
+    </header>
+    <div class="mb-6">
+        <span class="font-semibold text-lg">Filter by Category:</span>
+        <div class="flex flex-wrap gap-3 mt-2">
+            <a href="{% url 'post_list' %}"
+                class="px-4 py-2 rounded-full border {% if not selected_category_id %}bg-black text-white{% else %}bg-gray-100{% endif %}">
+                All
+            </a>
+
+            {% for category in categories %}
+            <a href="{% url 'post_list' %}?category={{ category.id }}"
+                class="px-4 py-2 rounded-full border 
+                   {% if selected_category_id == category.id %}bg-black text-white{% else %}bg-gray-100{% endif %}"><br>
+                {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="question-section">
+            <h2>Latest Questions</h2>
+            {% for question in questions %}
+                <div class="blog-post">
+                    <h3>{{ question.title }}</h3>
+                    <p>Asked by {{ question.user.username }} on {{ question.created_at|date:"d M Y" }}</p>
+                    <a href="{% url 'question_detail' question.pk %}" class="read-more">View Question</a>
+                </div>
+            {% empty %}
+                <p>No questions found.</p>
+            {% endfor %}
+        </div>
+
+        {% for post in posts %}
+            <div class="post-header">
+                <h1>{{ post.title }}</h1>
+                <small>
+                    {{ post.author.username }} | Posted on {{ post.created_at|date:"d-M-Y" }}
+                    {% if post.category %}| Category: {{ post.category.name }}{% endif %}
+                </small>
+            </div>
+
+            <div class="post-detail">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                <p>{{ post.content|slice:":200" }}...</p>
+                <p><a href="{% url 'post_detail' post.pk %}" class="read-more">Read More</a></p>
+            </div>
+        {% empty %}
+            <p>No posts available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 MindSET Matters. All rights reserved.</p>
+    </div>
+</body>
+
+</html>

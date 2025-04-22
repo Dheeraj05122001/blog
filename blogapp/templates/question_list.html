@@ -88,20 +88,19 @@
     <nav class="navbar">
         <div class="logo"><strong>MindSET Matters</strong></div>
         <div>
-            <a href="{% url 'question_list' %}" class="create-post-button">Home</a>
-            <a href="/postlist/" class="create-post-button">Blog</a>
+            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+            <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
             <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
             <a href="/ask/">Ask Question</a>
-            
-            
+
         </div>
         <div>
-            <a href="{% url 'user_profile' user.id %}">
-                <!-- <img src="{{ user_data.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;"> -->
-                <strong>{{ user.username|first }}</strong>
-            </a><br>
-        </div>
-    </nav>
+          <a href="{% url 'user_profile' user.id %}">
+              <strong>{{ user.username|first }}</strong>
+          </a><br>
+      </div>
+      </nav>
     <div class="container mt-4">
         <h1>All Questions</h1>
         {% for question in questions %}

@@ -205,42 +205,24 @@
     <nav class="navbar">
         <div class="logo"><strong>MindSET Matters</strong></div>
         <div>
-            <a href="{% url 'question_list' %}" class="create-post-button">Home</a>
-            <a href="/postlist/" class="create-post-button">Blog</a>
+            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+            <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
             <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
             <a href="/ask/">Ask Question</a>
 
         </div>
-        </div>
-        {% if user.is_authenticated %}
-    <div>
-        <a href="{% url 'user_profile' user.id %}">
-            <!-- <img src="{{ user_data.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;"> -->
-            <strong>{{ user.username|first }}</strong>
-        </a><br>
-    </div>
-    {% endif %}
-
-    </nav>
+        <div>
+          <a href="{% url 'user_profile' user.id %}">
+              <strong>{{ user.username|first }}</strong>
+          </a><br>
+      </div>
+      </nav>
     <header>
         <p>The place where thoughts become movements.</p>
     </header>
 
-    <!-- <form method="get" class="mb-6">
-        <label for="category" class="font-semibold text-lg">Filter by Category:</label>
-        <select name="category" id="category" onchange="this.form.submit()"
-            class="ml-2 px-4 py-2 border border-gray-300 rounded">
-            <option value="">All Categories</option>
-            {% for category in categories %}
-            <option value="{{ category.id }}" {% if selected_category_id == category.id %}selected{% endif %}>
-                {{ category.name }}
-            </option>
-            {% endfor %}
-        </select>
-    </form> -->
-
-    <!-- we can change this code in  -->
-
+    
     <div class="mb-6">
         <span class="font-semibold text-lg">Filter by Category:</span>
         <div class="flex flex-wrap gap-3 mt-2">
@@ -275,7 +257,6 @@
         </div>
 
         <div class="post-detail">
-            <!-- <img src="{{ post.image_url }}" alt="Post Image"> -->
             <div>
                 <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-[20px] h-[400px] rounded-lg " /></a>
             </div>

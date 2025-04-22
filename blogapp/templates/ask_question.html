@@ -15,6 +15,7 @@
             padding: 300;
             background-color: #fdfaf5;
         }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -36,10 +37,12 @@
             padding: 8px 16px;
             border-radius: 20px;
         }
+
         .draft-text {
             color: #777;
             font-size: 16px;
         }
+
         .publish-btn {
             background-color: #1e1e1e;
             color: #fff;
@@ -49,11 +52,13 @@
             font-size: 14px;
             cursor: pointer;
         }
+
         .editor-container {
             max-width: 800px;
             max-height: 500px;
             margin: 40px auto;
         }
+
         .title-input {
             font-size: 36px;
             font-weight: bold;
@@ -63,6 +68,7 @@
             color: #444;
             background-color: transparent;
         }
+
         .story-input {
             font-size: 20px;
             border: none;
@@ -72,17 +78,20 @@
             background-color: transparent;
             margin-top: 10px;
         }
+
         .plus-icon {
             font-size: 24px;
             color: #999;
             cursor: pointer;
             margin-right: 10px;
         }
-        p a{
+
+        p a {
             text-decoration: none;
             color: #000;
             margin-left: 90%;
         }
+
         .signout {
             background: black;
             color: white;
@@ -105,29 +114,31 @@
     <nav class="navbar">
         <div class="logo"><strong>MindSET Matters</strong></div>
         <div>
-            <a href="{% url 'question_list' %}" class="create-post-button">Home</a>
-            <a href="/postlist/" class="create-post-button">Blog</a>
+            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+            <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
             <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
             <a href="/ask/">Ask Question</a>
-            
-            
+
         </div>
         <div>
             <a href="{% url 'user_profile' user.id %}">
-                <!-- <img src="{{ user_data.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;"> -->
                 <strong>{{ user.username|first }}</strong>
             </a><br>
         </div>
     </nav>
-   
+
+
     <form method="POST">
         {% csrf_token %}
-        
-        
+
+
         <div class="editor-container">
-            <input type="text" id="title" name="title" class="title-input" placeholder="Question Title" required value="{{ form.title.value|default_if_none:'' }}">
+            <input type="text" id="title" name="title" class="title-input" placeholder="Question Title" required
+                value="{{ form.title.value|default_if_none:'' }}">
         </div>
-        <button class="publish-btn mt-16 sm:ml-[400px] md:ml-[600px] lg:ml-[950px] md:mt-[100px]" type="submit">Submit</button>
-        
+        <button class="publish-btn mt-16 sm:ml-[400px] md:ml-[600px] lg:ml-[950px] md:mt-[100px]"
+            type="submit">Submit</button>
+
     </form>
 </body>
