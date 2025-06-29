@@ -19,6 +19,8 @@ urlpatterns = [
     path('categories/new/', views.create_category, name='create_category'),
     path('category/<int:category_id>/', views.posts_by_category, name='posts_by_category'),
     path('profile/<int:user_id>/', views.user_profile, name='user_profile'),
+    path('search/', views.post_search, name='post_search'),
+    path('send-otp/', views.send_otp, name='send_otp'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

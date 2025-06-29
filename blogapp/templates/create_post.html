@@ -7,6 +7,8 @@
     <title>Create a blog post</title>
     <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -18,25 +20,32 @@
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0px;
-            padding-left: 50px;
-            padding-right: 50px;
-            padding: 300;
-            background-color: #fdfaf5;
+            background-color: #f0efed;
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0px;
+            z-index: 1000;
             padding: 20px 50px;
-            background: #fdfaf5;
+            background: linear-gradient(to right, #0dd3e1, #2058dc);
+            /* background: linear-gradient(to right, #34aae9, #0072ff); */
         }
 
         .navbar a {
             text-decoration: none;
-            color: black;
+            color: white;
             margin: 10px 15px;
             font-size: 20px;
+            font-weight: 500;
+            padding-bottom: 5px;
+        }
+
+        .navbar .navlinks a:hover {
+            border-bottom: 3px solid white;
         }
 
         .navbar .cta {
@@ -44,6 +53,23 @@
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
+        }
+
+        .userprofilelogo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            border: 3px solid rgb(91, 89, 89);
+            text-transform: uppercase;
+        }
+
+        .userprofilelogo a {
+            margin-top: 18px;
+            color: #000;
         }
 
         /* .navbar {
@@ -63,25 +89,14 @@
             font-size: 16px;
         }
 
-        .publish-btn {
-            background-color: #1e1e1e;
-            color: #fff;
-            border: none;
-            padding: 15px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
         .editor-container {
-            max-width: 800px;
+            max-width: 400px;
             max-height: 500px;
-            margin: 40px auto;
+            margin: 50px auto;
         }
 
         .title-input {
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 28px;
             border: none;
             width: 100%;
             outline: none;
@@ -93,10 +108,27 @@
             font-size: 20px;
             border: none;
             width: 100%;
+            height: 130px;
             outline: none;
             color: #999;
             background-color: transparent;
             margin-top: 10px;
+        }
+
+        .publish-btn {
+            width: 120px;
+            border-radius: 5px;
+            padding: 8px 12px;
+            border: 2px solid #ccc;
+            background-color: #f6f3f3;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .publish-btn:hover {
+            background: #0072ff;
+            color: white;
+            transition: all 0.3s ease-in-out;
         }
 
         .plus-icon {
@@ -131,22 +163,107 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo"><strong>MindSET Matters</strong></div>
-        <div>
-            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
-            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
-            <a href="{% url 'question_list' %}" class="create-post-button">Question</a>
-            <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a>
-            <a href="/ask/">Ask Question</a>
 
+    <!-- <div class="navbar">
+        <span class="medium-logo"> MindSET Matters</span>
+        <p><a href="/postlist/" class="create-post-button">Home</a></p>
+        
+    </div> -->
+
+    <nav class="navbar">
+        <div class="logo"><a href="{% url 'homepage' %}"><strong>MindSET Matters</strong></a></div>
+        <div class="navlinks">
+            <a href="{% url 'homepage' %}" class="create-post-button">Home</a>
+            <a href="{% url 'question_list' %}" class="create-post-button">FAQ</a>
+            <a href="{% url 'post_list' %}" class="create-post-button">Blog</a>
+            <!-- <a href="{% url 'create_post' %}" class="create-post-button">Write Blog</a> -->
+            <!-- <a href="{% url 'ask_question' %}" class="create-post-button">Ask Question</a> -->
+
+            <button type="button" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#blogModal">
+                Write Blog
+            </button>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#questionModal">
+                    Add Question
+                </button>
+            </div>
         </div>
-        <div>
-          <a href="{% url 'user_profile' user.id %}">
-              <strong>{{ user.username|first }}</strong>
-          </a><br>
-      </div>
-      </nav>
+
+        <div class="userprofilelogo">
+            <a href="{% url 'user_profile' user.id %}">
+                <strong>{{ user.username|first }}</strong>
+            </a><br>
+        </div>
+    </nav>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="blogModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="blogModalLabel">Create a Blog Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="title" name="title" class="form-control mb-3" placeholder="Enter Title"
+                            required value="{{ form.title.value|default_if_none:'' }}">
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Select Category:</label>
+                            {{ form.category }}
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea id="content" name="content" class="form-control" rows="5"
+                                placeholder="Tell your story..."
+                                required>{{ form.content.value|default_if_none:'' }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Upload Image:</label>
+                            <input type="file" id="image" name="image" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    {% if error_message %}
+    <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+    <form method="POST" action="{% url 'ask_question' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal fade" id="questionModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <input type="text" name="title" class="title-input" placeholder="Question Title" required
+                    value="{{ form.title.value|default_if_none:'' }}"> -->
+                        <textarea type="text" name="title" class="form-control" rows="3"
+                            placeholder="Start your question with 'What', 'How', 'Why', etc." required
+                            value="{{ form.title.value|default_if_none:'' }}"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     {% if error_message %}
     <div class="error-message">{{ error_message }}</div>
     {% endif %}
@@ -154,26 +271,30 @@
         {% csrf_token %}
 
         <div class="editor-container">
-            <input type="text" id="title" name="title" class="title-input" placeholder="Title" required
-                value="{{ form.title.value|default_if_none:'' }}">
-            <div style="margin-top: 20px;">
-                <label for="category">Select Category:</label>
+            <input type="text" id="title" name="title" class="title-input" placeholder="Enter Title" required
+                value="{{ form.title.value|default_if_none:'' }}"
+                style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; font-size: 16px;">
+            <div style="margin-top: 20px; font-family: Arial, sans-serif; font-size: 18px; color:#999;">
+                <label for="category" style="margin-right: 10px;">Select Category:</label>
                 {{ form.category }}
             </div>
-            <div style="display: flex; align-items: center; margin-top: 20px;">
-                <span class="plus-icon">+</span>
+            <div style="display: flex; margin-top: 20px;">
                 <textarea type="text" class="story-input" id="content" placeholder="Tell your story..." name="content"
-                    required>{{ form.content.value|default_if_none:'' }}</textarea>
+                    required
+                    style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; font-size: 16px; width: 100%;">{{ form.content.value|default_if_none:'' }}</textarea>
             </div>
-            <div style="margin-top: 20px;">
-                <label for="image">Upload Image:</label>
-                <input type="file" id="image" name="image" accept="image/*">
+            <div
+                style="margin-top: 20px; font-family: Arial, sans-serif; font-size: 18px;color: #999; display: flex; align-items: center;">
+                <label for="image" style="margin-right: 10px; color: #999; width: 100%;white-space: nowrap;">Upload
+                    Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" style="margin-left: 45px; color: #999;">
             </div>
         </div>
-        <button class="publish-btn mt-16 sm:ml-[400px] md:ml-[600px] lg:ml-[950px] md:mt-[100px]"
-            type="submit">Publish</button>
+        <div class="flex justify-center">
+            <button class="publish-btn" type="submit">Publish</button>
+        </div>
     </form>
-    
+
 
 </body>
 

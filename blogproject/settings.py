@@ -42,8 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blogapp'
+    'blogapp',
 ]
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': '100%',
+    'plugins': "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+    'toolbar1': "undo redo |link image media table mergetags| link | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image",
+    'toolbar2': "print preview media | forecolor backcolor emoticons",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
@@ -136,3 +146,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Stores uploaded files in "media/
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'dheerajchauhanjodi@gmail.com'
+EMAIL_HOST_PASSWORD = 'mtgumalalulqjzhs'
+DEFAULT_FROM_EMAIL = 'dheerajchauhanjodi@gmail.com'
+
+
+

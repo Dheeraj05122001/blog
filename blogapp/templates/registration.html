@@ -1,151 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Page</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #fdfaf5;
-        }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #fdfaf5;
+    }
 
-        .container {
-            height: 550px;    
-            margin-top: 20px;
-            background: #fff;
-            padding: 30px;
-            line-height: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgb(57, 56, 56);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
+    .container {
+      height: auto;
+      margin-top: 20px;
+      background: #fff;
+      padding: 30px;
+      line-height: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgb(57, 56, 56);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
 
-        h3 {
-            margin-bottom: 10px;
-        }
+    h3 {
+      margin-bottom: 10px;
+    }
 
-        p {
-            font-size: 14px;
-            color: gray;
-            margin-bottom: 20px;
-        }
+    p {
+      font-size: 14px;
+      color: gray;
+      margin-bottom: 20px;
+    }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-        label{
-            text-align: start;
-        }
+    label {
+      text-align: start;
+    }
 
-        .input-group input {
-            width: 100%;
-            padding: 10px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    .input-group input {
+      width: 100%;
+      padding: 10px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
 
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: gray;
-        }
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: gray;
+    }
 
-        .login-btn, .signup-btn {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(to right, #43cea2, #185a9d);
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    .login-btn, .signup-btn {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to right, #0dd3e1, #2058dc);
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        .login-btn:hover, .signup-btn:hover {
-            background: linear-gradient(to right, #185a9d, #43cea2);
-        }
+    .login-btn:hover, .signup-btn:hover {
+      background: linear-gradient(to right, #2058dc, #0dd3e1);
+    }
 
-        .signup {
-            margin-top: 10px;
-        }
+    .signup {
+      margin-top: 10px;
+    }
 
-        .signup a {
-            color: #185a9d;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+    .signup a {
+      color: #185a9d;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* NEW: styling for email-otp-row */
+    .email-otp-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .email-otp-row input {
+      flex: 1;
+    }
+
+    .send-otp-btn {
+      padding: 10px 15px;
+      background: #0dd3e1;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .send-otp-btn:hover {
+      background: #2058dc;
+    }
+
+    .otp-group {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h3>Register</h3>
-        <div class="logo"><strong>Join MindSET Matters</strong></div>
-        <form method="post" action="{% url 'signuppage' %}" >
-            {% csrf_token %}
-            {% if messages %}
-            <div class="alert alert-primary" role="alert">
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
-            </div>
-            {% endif %}
+  <div class="container">
+    <h3>Register</h3>
+    <div class="logo"><strong>Join MindSET Matters</strong></div>
+    <form method="post" action="{% url 'signuppage' %}" id="registrationForm">
+      {% csrf_token %}
+      {% if messages %}
+      <div class="alert alert-primary" role="alert">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+      {% endif %}
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" name="username" placeholder="User Id">
-            </div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="User Id" required />
+      </div>
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" name="first_name" placeholder="First Name">
-            </div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" name="first_name" placeholder="First Name" required />
+      </div>
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="email" name="email" placeholder="Email">
-            </div>
+      <!-- ✅ NEW: Email + Send OTP Button -->
+      <div class="input-group email-otp-row">
+        <input type="email" name="email" id="email" placeholder="Email" required />
+        <button type="button" class="send-otp-btn" id="sendOtpBtn">Send OTP</button>
+      </div>
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="password" name="pass1" placeholder="Password">
-            </div>
+      <!-- ✅ NEW: OTP input shown only after sending OTP -->
+      <div class="input-group otp-group" id="otpGroup">
+        <i class="fas fa-user"></i>
+        <input type="text" name="otp" placeholder="Enter OTP" required />
+      </div>
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="password" name="pass2" placeholder="Confirm Password">
-            </div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="password" name="pass1" placeholder="Password" required />
+      </div>
 
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="file" id="image" name="image" accept="image/*">
-            </div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="password" name="pass2" placeholder="Confirm Password" required />
+      </div>
 
-            <button type="submit" class="signup-btn">CREATE</button>
+      <button type="submit" class="signup-btn">Create</button>
 
-            <div class="signup">
-                <p>Already have an account? <a href="{% url 'loginpage' %}">Login</a></p>
-            </div>
-        </form>
-    </div>
+      <div class="signup">
+        <p>Already have an account? <a href="{% url 'loginpage' %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ NEW: JS to send OTP -->
+  <script>
+    document.getElementById("sendOtpBtn").addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+
+      if (!email) {
+        alert("Please enter your email first!");
+        return;
+      }
+
+      fetch("{% url 'send_otp' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: JSON.stringify({ email: email }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+          if (data.success) {
+            document.getElementById("otpGroup").style.display = "block";
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Something went wrong sending OTP.");
+        });
+    });
+  </script>
 </body>
 </html>
